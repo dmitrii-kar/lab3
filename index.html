@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WebGL</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.4.0/gl-matrix-min.js"></script>
+</head>
+
+<body>
+
+    <!-- вершинный шейдер -->
+    <script id="shader-vs" type="x-shader/x-vertex">#version 300 es
+
+        layout(location = 0) in vec3 aVertexPosition;
+        layout(location = 1) in vec3 aVertexColor;
+        out vec4 vColor;
+
+        uniform mat4 uModelTransform;
+        uniform mat4 uViewProjTransform;
+
+        void main(void)
+        {
+            gl_Position = uViewProjTransform * uModelTransform * vec4(aVertexPosition, 1.0);
+            vColor = vec4(aVertexColor, 1.0);
+        }
+    </script>
+
+    <!-- фрагментный шейдер -->
+    <script id="shader-fs" type="x-shader/x-fragment">#version 300 es
+        precision mediump float;
+
+        in vec4 vColor;
+        out vec4 fragColor;
+
+        void main(void)
+        {
+            fragColor = vColor;
+        }
+    </script>
+
+    <script type="text/javascript" src="Camera.js"></script>
+    <script type="text/javascript" src="ColorBuffer.js"></script>
+    <script type="text/javascript" src="Core.js"></script>
+    <script type="text/javascript" src="IndexBuffer.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="MainLoop.js"></script>
+    <script type="text/javascript" src="Renderable.js"></script>
+    <script type="text/javascript" src="Scene.js"></script>
+    <script type="text/javascript" src="ShaderProgram.js"></script>
+    <script type="text/javascript" src="Transform.js"></script>
+    <script type="text/javascript" src="VertexBuffer.js"></script>
+
+    <canvas id="GLCanvas" width="800" height="400">
+        Ваш браузер не поддерживает элемент canvas
+    </canvas>
+
+</body>
+
+</html>
